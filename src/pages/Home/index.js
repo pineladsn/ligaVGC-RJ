@@ -7,7 +7,7 @@ import PokemonTable from "~/components/PokemonTable";
 import TeamValidator from "~/components/TeamValidator";
 import Footer from "~/components/Footer";
 
-import { lcNumbers } from "~/mocks";
+import { lcNumbers, pokemonNotInSwShAfterCrownTundra } from "~/mocks";
 import { fetchPokemonWithBSTLowerThan500 } from "~/services/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,10 +30,14 @@ export default function Home() {
 
   const fetchPokemonData = async () => {
     setIsLoading(true);
-    const allPokemon = Array.from(Array(898).keys());
+    const allPokemon = Array.from({ length: 898 }, (_, i) => i + 1);
+    const swShPokemon = allPokemon.filter(
+      (val) => !pokemonNotInSwShAfterCrownTundra.includes(val)
+    );
+
     const res = await Promise.all(
-      allPokemon.map((pokemonNumber) => {
-        return fetchPokemonFromAPI(pokemonNumber + 1);
+      swShPokemon.map((number) => {
+        return fetchPokemonFromAPI(number);
       })
     );
 
