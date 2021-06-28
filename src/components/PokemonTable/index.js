@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import { findRenderedComponentWithType } from "react-dom/test-utils";
+import { colorfyByType } from "~/utils/colorfy";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -36,6 +37,12 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(9),
     height: theme.spacing(9),
   },
+  type: {
+    color: "#FFF",
+    borderRadius: "4px",
+    margin: "0px 4px",
+    padding: "4px 8px",
+  },
 }));
 
 export default function PokemonTable(props) {
@@ -44,9 +51,17 @@ export default function PokemonTable(props) {
 
   const fetchType = (types) => {
     const typesArr = types.map((item) => {
-      return item.type.name;
+      return (
+        <span
+          className={classes.type}
+          style={{ backgroundColor: colorfyByType(item.type.name) }}
+        >
+          {item.type.name}
+        </span>
+      );
     });
-    return typesArr.join().replace(",", "\n");
+    // return typesArr.join().replace(",", "\n");
+    return typesArr;
   };
 
   const fetchAbilities = (abilities) => {
