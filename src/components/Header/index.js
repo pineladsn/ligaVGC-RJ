@@ -28,7 +28,7 @@ export default function Header(props) {
     { title: "Lista de pokémon", url: "/" },
     {
       title: "VGC Brasil",
-      url: "http://bit.ly/VGCBR20",
+      url: "https://beacons.page/pokevgcbr",
       target: "_blank",
     },
     {
