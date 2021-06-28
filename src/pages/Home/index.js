@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { BulletList } from "react-content-loader";
 import { CssBaseline, Container } from "@material-ui/core";
 import Header from "~/components/Header";
+import Filter from "~/components/Filter";
 import PokemonTable from "~/components/PokemonTable";
 import TeamValidator from "~/components/TeamValidator";
 import Footer from "~/components/Footer";
@@ -21,7 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
-  const [lcPokemonSwSh, setLcPokemonSwSh] = useState([]);
+  const [pokemon, setPokemon] = useState([]);
+  const [filteredPokemon, setFilteredPokemon] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -44,7 +46,8 @@ export default function Home() {
     const filtered = res.filter(function (el) {
       return el != null;
     });
-    setLcPokemonSwSh(filtered);
+    setPokemon(filtered);
+    setFilteredPokemon(filtered);
 
     setIsLoading(false);
   };
@@ -59,6 +62,7 @@ export default function Home() {
       <CssBaseline />
       <Container maxWidth="lg">
         <Header title="LIGA VGC RJ - Sub 500" active={"Lista de pokémon"} />
+        <Filter pokemon={pokemon} setPokemon={setFilteredPokemon} />
         {isLoading ? (
           <>
             <div className={classes.loadingWrapper}>
@@ -67,7 +71,7 @@ export default function Home() {
           </>
         ) : (
           <div className={classes.mainGrid}>
-            <PokemonTable data={lcPokemonSwSh} />
+            <PokemonTable data={filteredPokemon} />
             {/* <TeamValidator /> */}
           </div>
         )}
