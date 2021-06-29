@@ -1,4 +1,5 @@
 import axios from "axios";
+import { calcBST } from "~/utils/pokemonProps";
 
 export const fetchPokemon = async (pokemonNumber) => {
   try {
@@ -20,12 +21,4 @@ export const fetchPokemonWithBSTLowerThan500 = async (pokemonNumber) => {
   } catch (error) {
     console.error(error);
   }
-};
-
-const calcBST = (bases) => {
-  const basesArr = bases.map((item) => {
-    return item.base_stat;
-  });
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  return basesArr.reduce(reducer);
 };

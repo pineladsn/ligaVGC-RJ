@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
 import { findRenderedComponentWithType } from "react-dom/test-utils";
 import { colorfyByType } from "~/utils/colorfy";
+import { calcBST } from "~/utils/pokemonProps";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -84,14 +85,6 @@ export default function PokemonTable(props) {
         return item;
       }
     })?.ability?.name;
-  };
-
-  const calcBST = (bases) => {
-    const basesArr = bases.map((item) => {
-      return item.base_stat;
-    });
-    const reducer = (accumulator, currentValue) => accumulator + currentValue;
-    return basesArr.reduce(reducer);
   };
 
   return (
