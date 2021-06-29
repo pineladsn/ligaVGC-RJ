@@ -7,6 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
+import { calcBST } from "~/utils/pokemonProps";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -66,7 +67,7 @@ const types = [
   "water",
 ];
 
-const bases = [">300", ">400", "500"];
+const bases = [">300", ">400", "=500"];
 
 const generations = [
   "Kanto",
@@ -78,6 +79,28 @@ const generations = [
   "Alola",
   "Galar",
 ];
+
+const pokemonPerGenerationMin = {
+  Kanto: 1,
+  Johto: 152,
+  Hoenn: 252,
+  Sinnoh: 387,
+  Unova: 494,
+  Kalos: 650,
+  Alola: 722,
+  Galar: 810,
+};
+
+const pokemonPerGenerationMax = {
+  Kanto: 151,
+  Johto: 251,
+  Hoenn: 386,
+  Sinnoh: 493,
+  Unova: 649,
+  Kalos: 721,
+  Alola: 809,
+  Galar: 898,
+};
 
 function getStyles(name, personName, theme) {
   return {
@@ -115,19 +138,49 @@ export default function Filter(props) {
   };
 
   const doFilter = () => {
-    if (type.length === 0) {
+    if (type.length === 0 && base.length === 0 && generation.length === 0) {
       setPokemon(pokemon);
-    } else {
-      const filteredByType = pokemon.filter((poke) => {
+      return;
+    }
+    let filtered = [];
+    let currentPokes = [];
+
+    // Filter by type
+    if (type.length > 0) {
+      filtered = pokemon.filter((poke) => {
         const v = poke.types.filter((item) => {
           return type.includes(item.type.name);
         });
 
         return v.length > 0 ? poke : null;
       });
-
-      setPokemon(filteredByType);
     }
+
+    // Filter by base
+    if (base.length > 0) {
+      currentPokes = filtered.length === 0 ? pokemon : filtered;
+      filtered = currentPokes.filter((poke) => {
+        const total = calcBST(poke.stats);
+        return total >= parseInt(base.substring(1, 4)) ? poke : null;
+      });
+    }
+
+    // Filter by generation
+    if (generation.length > 0) {
+      currentPokes = filtered.length === 0 ? pokemon : filtered;
+      filtered = currentPokes.filter((poke) => {
+        const v = generation.filter((gen) => {
+          return (
+            poke.id >= pokemonPerGenerationMin[gen] &&
+            poke.id <= pokemonPerGenerationMax[gen]
+          );
+        });
+
+        return v.length > 0 ? poke : null;
+      });
+    }
+
+    setPokemon(filtered);
   };
 
   return (
@@ -162,7 +215,7 @@ export default function Filter(props) {
         </Select>
       </FormControl>
 
-      {/* <FormControl className={classes.formControl}>
+      <FormControl className={classes.formControl}>
         <InputLabel id="base-label">By total base</InputLabel>
         <Select
           labelId="base-label"
@@ -217,7 +270,7 @@ export default function Filter(props) {
             </MenuItem>
           ))}
         </Select>
-      </FormControl> */}
+      </FormControl>
 
       <div className={classes.buttonRow}>
         <Button onClick={resetFilters}>Limpar filtros</Button>
