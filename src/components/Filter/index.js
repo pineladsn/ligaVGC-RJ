@@ -276,6 +276,7 @@ export default function Filter(props) {
         <Button onClick={resetFilters}>Limpar filtros</Button>
         <Button
           variant="contained"
+          color="primary"
           onClick={doFilter}
           className={classes.actionButton}
         >
