@@ -26,6 +26,7 @@ export default function Header(props) {
 
   const sections = [
     { title: "Lista de pokémon", url: "/" },
+    { title: "Times", url: "sample-teams" },
     {
       title: "VGC Brasil",
       url: "https://beacons.page/pokevgcbr",
