@@ -39,7 +39,6 @@ function TeamChoose(props) {
 
   const handleValidate = () => {
     const a = pokemonTeam;
-    debugger;
   };
 
   return (

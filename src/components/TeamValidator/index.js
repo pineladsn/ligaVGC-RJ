@@ -54,7 +54,6 @@ function TeamValidator() {
   const handleClick = () => {
     const a = colorName;
     setPokemonByColor(redPokemon);
-    debugger;
   };
 
   const colors = [

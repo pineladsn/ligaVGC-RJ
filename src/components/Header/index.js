@@ -8,7 +8,12 @@ const useStyles = makeStyles((theme) => ({
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
   toolbarTitle: {
+    color: "#e84393",
     flex: 1,
+    textOverflow: "inherit",
+    overflow: "auto",
+    whiteSpace: "break-spaces",
+    padding: "20px 0",
   },
   toolbarSecondary: {
     justifyContent: "space-between",
@@ -18,6 +23,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     flexShrink: 0,
   },
+  toolbarLinkSpecial: {
+    padding: theme.spacing(1),
+    flexShrink: 0,
+    backgroundColor: "#e84393",
+    borderRadius: "4px",
+  },
 }));
 
 export default function Header(props) {
@@ -26,7 +37,7 @@ export default function Header(props) {
 
   const sections = [
     { title: "Lista de pokémon", url: "/" },
-    { title: "Times", url: "sample-teams" },
+    // { title: "Times", url: "sample-teams" },
     {
       title: "VGC Brasil",
       url: "https://beacons.page/pokevgcbr",
@@ -38,8 +49,9 @@ export default function Header(props) {
       target: "_blank",
     },
     {
-      title: "Documentação Bulbapedia",
-      url: "https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_base_stats_(Generation_VIII-present)",
+      title: "Conscientize-se",
+      url: "https://www.inca.gov.br/assuntos/outubro-rosa",
+      // url: "https://bulbapedia.bulbagarden.net/wiki/List_of_Pok%C3%A9mon_by_base_stats_(Generation_VIII-present)",
       target: "_blank",
     },
     {
@@ -76,7 +88,11 @@ export default function Header(props) {
             variant="body2"
             href={section.url}
             target={section.target}
-            className={classes.toolbarLink}
+            className={
+              section.title === "Conscientize-se"
+                ? classes.toolbarLinkSpecial
+                : classes.toolbarLink
+            }
           >
             {section.title}
           </Link>

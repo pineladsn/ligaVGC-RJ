@@ -8,7 +8,11 @@ import PokemonTable from "~/components/PokemonTable";
 import TeamValidator from "~/components/TeamValidator";
 import Footer from "~/components/Footer";
 
-import { lcNumbers, pokemonNotInSwShAfterCrownTundra } from "~/mocks";
+import {
+  lcNumbers,
+  pokemonNotInSwShAfterCrownTundra,
+  pinkPokemon,
+} from "~/mocks";
 import { fetchPokemonWithBSTLowerThan500 } from "~/services/api";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,8 +36,9 @@ export default function Home() {
 
   const fetchPokemonData = async () => {
     setIsLoading(true);
-    const allPokemon = Array.from({ length: 898 }, (_, i) => i + 1);
-    const swShPokemon = allPokemon.filter(
+    // const allPokemon = Array.from({ length: 898 }, (_, i) => i + 1);
+    const pink = pinkPokemon;
+    const swShPokemon = pink.filter(
       (val) => !pokemonNotInSwShAfterCrownTundra.includes(val)
     );
 
@@ -61,8 +66,11 @@ export default function Home() {
     <>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header title="LIGA VGC RJ - Sub 500" active={"Lista de pokémon"} />
-        <Filter pokemon={pokemon} setPokemon={setFilteredPokemon} />
+        <Header
+          title="LIGA VGC RJ - Torneio Outubro Rosa"
+          active={"Lista de pokémon"}
+        />
+        {/* <Filter pokemon={pokemon} setPokemon={setFilteredPokemon} /> */}
         {isLoading ? (
           <>
             <div className={classes.loadingWrapper}>
