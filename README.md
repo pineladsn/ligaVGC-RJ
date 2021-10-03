@@ -1,2 +1,2 @@
-# team-validator
-Pokémon team validator
+# Liga VGC RJ
+A website for VGC RJ Pokémon league
