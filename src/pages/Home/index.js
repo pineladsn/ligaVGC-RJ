@@ -13,7 +13,7 @@ import {
   pokemonNotInSwShAfterCrownTundra,
   pinkPokemon,
 } from "~/mocks";
-import { fetchPokemonWithBSTLowerThan500 } from "~/services/api";
+import { fetchPokemon } from "~/services/api";
 
 const useStyles = makeStyles((theme) => ({
   mainGrid: {
@@ -58,7 +58,7 @@ export default function Home() {
   };
 
   const fetchPokemonFromAPI = async (pokemonNumber) => {
-    const res = await fetchPokemonWithBSTLowerThan500(pokemonNumber);
+    const res = await fetchPokemon(pokemonNumber);
     return res;
   };
 
